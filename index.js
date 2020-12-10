@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
+const events = require("./app/events");
 const users = require("./app/users");
 const cors = require('cors');
 const config = require("./config");
@@ -17,7 +17,7 @@ const options = {
 
 const run = async () => {
     await mongoose.connect(config.db.url + "/" + config.db.name, options);
-
+    app.use("/events", events);
     app.use("/users", users);
     console.log("Connected");
     app.listen(port, () => {
